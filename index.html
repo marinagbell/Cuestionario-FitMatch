@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Test de Estilo</title>
+  <style>
+    body { font-family: system-ui, Arial, sans-serif; max-width: 920px; margin: 24px auto; padding: 0 16px; }
+    h1 { margin: 0 0 6px; }
+    .muted { color:#555; margin: 0 0 18px; }
+    .card { border:1px solid #ddd; border-radius:14px; padding:16px; margin:14px 0; }
+    .q-title { font-weight:700; margin-bottom:10px; }
+    .opts { display:grid; gap:8px; }
+    label { display:flex; gap:10px; align-items:flex-start; padding:10px; border:1px solid #eee; border-radius:12px; cursor:pointer; }
+    label:hover { background:#fafafa; }
+    input[type="radio"] { margin-top:3px; }
+    .actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top: 10px; }
+    button { padding:10px 14px; border:1px solid #222; background:#222; color:#fff; border-radius:12px; cursor:pointer; }
+    button.secondary { background:#fff; color:#222; }
+    button:disabled { opacity:.55; cursor:not-allowed; }
+    .error { color:#b00020; font-weight:600; }
+    .result { border-left:6px solid #222; }
+    .badge { display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid #ddd; margin-left:8px; font-size:12px; }
+    .scores { display:grid; gap:6px; margin-top:10px; }
+    .score-row { display:flex; justify-content:space-between; border:1px solid #eee; padding:8px 10px; border-radius:12px; }
+  </style>
+</head>
+<body>
+  <h1>Test de Estilo</h1>
+  <p class="muted">Responde 10 preguntas. Al final te asigno un estilo según tus respuestas.</p>
+
+  <form id="quiz"></form>
+
+  <div class="actions">
+    <button id="btnResult" type="button">Ver resultado</button>
+    <button id="btnReset" type="button" class="secondary">Reiniciar</button>
+    <span id="msg" class="error" aria-live="polite"></span>
+  </div>
+
+  <div id="out" class="card result" style="display:none;"></div>
+
+  <script>
+    // ✅ GRUPOS FINALES (tus 11 estilos)
+    const GROUPS = [
+      { id: "old_money",   name: "Old Money",   desc: "Elegancia clásica, prendas de calidad, tonos neutros, acabados pulidos." },
+      { id: "clean_girl",  name: "Clean Girl",  desc: "Minimalismo pulcro, básicos impecables, maquillaje/peinado limpio, look “fresh”." },
+      { id: "streetwear",  name: "Streetwear",  desc: "Urbano, oversize, sneakers, gráficos, actitud y tendencia." },
+      { id: "athleisure",  name: "Athleisure",  desc: "Deportivo-urbano: comodidad técnica + estilo para diario." },
+      { id: "minimalista", name: "Minimalista", desc: "Menos es más: líneas simples, paleta sobria, sin exceso." },
+      { id: "boho",        name: "Boho",        desc: "Relajado y artístico: texturas, estampados, capas, vibe libre." },
+      { id: "coquete",     name: "Coquete",     desc: "Femenino coqueto: detalles delicados, lazos, tonos suaves, toque romántico." },
+      { id: "casual_cool", name: "Casual Cool", desc: "Casual con intención: sencillo pero con ‘algo’ que eleva el look." },
+      { id: "total_black", name: "Total Black", desc: "Negro como base: look potente, sobrio y con personalidad." },
+      { id: "clasico",     name: "Clásico",     desc: "Atemporal: cortes tradicionales, equilibrio, elegancia sin esfuerzo." },
+      { id: "baddie",      name: "Baddie",      desc: "Seguro y marcado: silueta definida, glamour, tendencia y actitud." }
+    ];
+
+    // ✅ 10 PREGUNTAS (placeholder). Luego me dices texto y mapeo A/B/C -> grupos/puntos.
+    // Por ahora cada opción suma puntos a "placeholder" (lo cambiaremos).
+    const QUESTIONS = Array.from({ length: 10 }, (_, i) => ({
+      id: `q${i+1}`,
+      text: `Pregunta ${i+1} (pendiente de definir)`,
+      options: [
+        { key: "A", text: "Opción A (pendiente)", points: {} },
+        { key: "B", text: "Opción B (pendiente)", points: {} },
+        { key: "C", text: "Opción C (pendiente)", points: {} },
+      ]
+    }));
+
+    const quizEl = document.getElementById("quiz");
+    const msgEl  = document.getElementById("msg");
+    const outEl  = document.getElementById("out");
+
+    function renderQuiz() {
+      quizEl.innerHTML = "";
+      QUESTIONS.forEach((q, idx) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <div class="q-title">${idx + 1}. ${q.text}</div>
+          <div class="opts"></div>
+        `;
+        const opts = card.querySelector(".opts");
+
+        q.options.forEach((opt, j) => {
+          const optId = `${q.id}_${j}`;
+          const label = document.createElement("label");
+          label.setAttribute("for", optId);
+          label.innerHTML = `
+            <input id="${optId}" type="radio" name="${q.id}" value="${j}">
+            <div><strong>${opt.key})</strong> ${opt.text}</div>
+          `;
+          opts.appendChild(label);
+        });
+
+        quizEl.appendChild(card);
+      });
+    }
+
+    function getScores() {
+      const scores = Object.fromEntries(GROUPS.map(g => [g.id, 0]));
+
+      for (const q of QUESTIONS) {
+        const chosen = quizEl.querySelector(`input[name="${q.id}"]:checked`);
+        if (!chosen) return { ok: false, scores: null };
+
+        const opt = q.options[Number(chosen.value)];
+
+        // Suma puntos definidos por opción (más adelante lo rellenamos)
+        for (const [gid, pts] of Object.entries(opt.points || {})) {
+          if (scores[gid] === undefined) continue;
+          scores[gid] += (pts ?? 0);
+        }
+      }
+      return { ok: true, scores };
+    }
+
+    function pickGroup(scores) {
+      const entries = Object.entries(scores).sort((a,b) => b[1] - a[1]);
+
+      const topScore = entries[0][1];
+      const tied = entries.filter(([_, s]) => s === topScore);
+
+      // Desempate: si todo está a 0 (porque aún no mapeamos puntos), muestra mensaje útil
+      const allZero = entries.every(([_, s]) => s === 0);
+      if (allZero) return { name: "Sin asignar", desc: "Aún no se han configurado los puntos (mapeo A/B/C → estilos)." };
+
+      // Si hay empate, elige según el orden de GROUPS (estable)
+      if (tied.length > 1) {
+        const order = GROUPS.map(g => g.id);
+        tied.sort((a,b) => order.indexOf(a[0]) - order.indexOf(b[0]));
+      }
+
+      const winnerId = tied[0][0];
+      return GROUPS.find(g => g.id === winnerId);
+    }
+
+    function showResult() {
+      msgEl.textContent = "";
+      const { ok, scores } = getScores();
+      if (!ok) {
+        msgEl.textContent = "Te falta responder alguna pregunta.";
+        outEl.style.display = "none";
+        return;
+      }
+
+      const winner = pickGroup(scores);
+
+      const rows = Object.entries(scores)
+        .map(([gid, pts]) => {
+          const g = GROUPS.find(x => x.id === gid);
+          return `<div class="score-row"><div>${g?.name ?? gid}</div><div><strong>${pts}</strong></div></div>`;
+        })
+        .join("");
+
+      outEl.innerHTML = `
+        <div>
+          <strong>Tu estilo:</strong>
+          <span class="badge">${winner.name}</span>
+        </div>
+        <p style="margin:10px 0 0 0;">${winner.desc}</p>
+        <div class="scores">
+          <div style="font-weight:700; margin-top:8px;">Puntuaciones</div>
+          ${rows}
+        </div>
+      `;
+      outEl.style.display = "block";
+      outEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function resetQuiz() {
+      msgEl.textContent = "";
+      outEl.style.display = "none";
+      quizEl.reset();
+    }
+
+    document.getElementById("btnResult").addEventListener("click", showResult);
+    document.getElementById("btnReset").addEventListener("click", resetQuiz);
+
+    renderQuiz();
+  </script>
+</body>
+</html>
