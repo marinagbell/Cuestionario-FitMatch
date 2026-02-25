@@ -66,7 +66,7 @@
     max-width: 70ch;
   }
 
-  /* ✅ Tarjetas con el mismo gradiente que el botón + overlay oscuro para legibilidad */
+  /* Tarjetas con el mismo gradiente que el botón + overlay oscuro para legibilidad */
   .card{
     background: var(--grad);
     border: 1px solid rgba(255,255,255,.10);
@@ -217,7 +217,6 @@
   .result{
     margin-top: 16px;
     border-left: 6px solid var(--accent);
-    padding-left: 12px;
     background: rgba(0,0,0,.20);
     border-radius: 14px;
     padding: 14px 14px 14px 18px;
@@ -234,19 +233,31 @@
     color: var(--text);
   }
 
-  .scores{
-    margin-top: 12px;
-    display:grid;
-    gap: 8px;
+  .top-card{
+    border: 1px solid rgba(255,46,166,.45);
+    border-radius: 14px;
+    padding: 14px 14px;
+    background: rgba(255,46,166,.10);
   }
-
-  .score-row{
-    display:flex;
-    justify-content:space-between;
+  .sub-card{
     border: 1px solid var(--line);
     border-radius: 14px;
-    padding: 10px 12px;
+    padding: 12px 14px;
     background: rgba(255,255,255,.06);
+    margin-top: 10px;
+  }
+  .top-title{
+    font-weight: 900;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+  }
+  .sub-title{
+    font-weight: 900;
+  }
+  .desc{
+    margin-top: 8px;
+    color: var(--muted);
+    line-height: 1.5;
   }
 
   @media (max-width: 520px){
@@ -260,21 +271,53 @@
 <div class="container">
 
   <h1>Test de Estilo</h1>
-  <p class="muted">Responde 10 preguntas. En las de ranking, usa ▲ y ▼ para ordenar. Al final se asigna un estilo.</p>
+  <p class="muted">Responde 10 preguntas. En las de ranking, usa ▲ y ▼ para ordenar. Al final se asignan tus 3 estilos más probables.</p>
 
   <form id="quiz">
 
+    <!-- 1 -->
     <div class="card">
       <h2>1. Ordena los siguientes aspectos según su importancia al vestir</h2>
       <ul class="ranking" data-question="q1">
-        <li data-item="zapatos"><span>Zapatos</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="complementos"><span>Complementos</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="outfit_base"><span>Outfit base</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="colores"><span>Colores</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="comodidad"><span>Comodidad</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
+        <li data-item="zapatos">
+          <span>Zapatos</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Zapatos">▲</button>
+            <button type="button" class="down" aria-label="Bajar Zapatos">▼</button>
+          </span>
+        </li>
+        <li data-item="complementos">
+          <span>Complementos</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Complementos">▲</button>
+            <button type="button" class="down" aria-label="Bajar Complementos">▼</button>
+          </span>
+        </li>
+        <li data-item="outfit_base">
+          <span>Outfit base</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Outfit base">▲</button>
+            <button type="button" class="down" aria-label="Bajar Outfit base">▼</button>
+          </span>
+        </li>
+        <li data-item="colores">
+          <span>Colores</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Colores">▲</button>
+            <button type="button" class="down" aria-label="Bajar Colores">▼</button>
+          </span>
+        </li>
+        <li data-item="comodidad">
+          <span>Comodidad</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Comodidad">▲</button>
+            <button type="button" class="down" aria-label="Bajar Comodidad">▼</button>
+          </span>
+        </li>
       </ul>
     </div>
 
+    <!-- 2 -->
     <div class="card">
       <h2>2. ¿Qué tipo de prendas usas con mayor frecuencia?</h2>
       <label><input type="radio" name="q2" value="jeans"> Pantalones o jeans</label>
@@ -284,6 +327,7 @@
       <label><input type="radio" name="q2" value="trajes"> Trajes</label>
     </div>
 
+    <!-- 3 -->
     <div class="card">
       <h2>3. ¿Qué colores te gusta lucir más?</h2>
       <label><input type="radio" name="q3" value="neutros"> Colores neutros (negro, blanco, beige, gris)</label>
@@ -293,16 +337,42 @@
       <label><input type="radio" name="q3" value="mix"> Prefiero combinar varios colores</label>
     </div>
 
+    <!-- 4 -->
     <div class="card">
       <h2>4. ¿Cuándo priorizas más tu estilo? Ordena según importancia para ti</h2>
       <ul class="ranking" data-question="q4">
-        <li data-item="eventos"><span>Eventos especiales</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="dia_a_dia"><span>Día a día</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="trabajo"><span>Trabajo</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="vacaciones"><span>Vacaciones</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
+        <li data-item="eventos">
+          <span>Eventos especiales</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Eventos especiales">▲</button>
+            <button type="button" class="down" aria-label="Bajar Eventos especiales">▼</button>
+          </span>
+        </li>
+        <li data-item="dia_a_dia">
+          <span>Día a día</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Día a día">▲</button>
+            <button type="button" class="down" aria-label="Bajar Día a día">▼</button>
+          </span>
+        </li>
+        <li data-item="trabajo">
+          <span>Trabajo</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Trabajo">▲</button>
+            <button type="button" class="down" aria-label="Bajar Trabajo">▼</button>
+          </span>
+        </li>
+        <li data-item="vacaciones">
+          <span>Vacaciones</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Vacaciones">▲</button>
+            <button type="button" class="down" aria-label="Bajar Vacaciones">▼</button>
+          </span>
+        </li>
       </ul>
     </div>
 
+    <!-- 5 -->
     <div class="card">
       <h2>5. ¿Cuáles son tus accesorios favoritos para complementar un atuendo?</h2>
       <label><input type="radio" name="q5" value="bolsos"> Bolsos o carteras</label>
@@ -312,6 +382,7 @@
       <label><input type="radio" name="q5" value="nada"> No suelo usar accesorios</label>
     </div>
 
+    <!-- 6 -->
     <div class="card">
       <h2>6. ¿Qué factores consideras más importantes al elegir tus atuendos?</h2>
       <label><input type="radio" name="q6" value="comodidad"> Comodidad</label>
@@ -321,17 +392,49 @@
       <label><input type="radio" name="q6" value="calidad_precio"> Relación calidad-precio</label>
     </div>
 
+    <!-- 7 -->
     <div class="card">
       <h2>7. Ordena las prendas que usas más habitualmente</h2>
       <ul class="ranking" data-question="q7">
-        <li data-item="pantalones"><span>Pantalones</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="vestidos"><span>Vestidos</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="blusas"><span>Blusas</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="ropa_deportiva"><span>Ropa deportiva</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
-        <li data-item="trajes"><span>Trajes</span><span class="rank-btns"><button type="button" class="up">▲</button><button type="button" class="down">▼</button></span></li>
+        <li data-item="pantalones">
+          <span>Pantalones</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Pantalones">▲</button>
+            <button type="button" class="down" aria-label="Bajar Pantalones">▼</button>
+          </span>
+        </li>
+        <li data-item="vestidos">
+          <span>Vestidos</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Vestidos">▲</button>
+            <button type="button" class="down" aria-label="Bajar Vestidos">▼</button>
+          </span>
+        </li>
+        <li data-item="blusas">
+          <span>Blusas</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Blusas">▲</button>
+            <button type="button" class="down" aria-label="Bajar Blusas">▼</button>
+          </span>
+        </li>
+        <li data-item="ropa_deportiva">
+          <span>Ropa deportiva</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Ropa deportiva">▲</button>
+            <button type="button" class="down" aria-label="Bajar Ropa deportiva">▼</button>
+          </span>
+        </li>
+        <li data-item="trajes">
+          <span>Trajes</span>
+          <span class="rank-btns">
+            <button type="button" class="up" aria-label="Subir Trajes">▲</button>
+            <button type="button" class="down" aria-label="Bajar Trajes">▼</button>
+          </span>
+        </li>
       </ul>
     </div>
 
+    <!-- 8 -->
     <div class="card">
       <h2>8. ¿Qué outfit elegirías para un evento formal?</h2>
       <label><input type="radio" name="q8" value="vestido"> Vestido elegante</label>
@@ -339,6 +442,7 @@
       <label><input type="radio" name="q8" value="mono"> Mono de fiesta</label>
     </div>
 
+    <!-- 9 -->
     <div class="card">
       <h2>9. ¿Cuál de estos looks casuales va más contigo?</h2>
       <label><input type="radio" name="q9" value="jeans"> Jeans y camiseta cómoda</label>
@@ -346,6 +450,7 @@
       <label><input type="radio" name="q9" value="sporty"> Conjunto relajado y sporty</label>
     </div>
 
+    <!-- 10 -->
     <div class="card">
       <h2>10. ¿Qué opción prefieres para un ambiente profesional?</h2>
       <label><input type="radio" name="q10" value="blazer"> Blazer con pantalón o falda</label>
@@ -364,6 +469,9 @@
   </form>
 
 <script>
+/** =========================
+ *  1) Estilos finales
+ *  ========================= */
 const GROUPS = [
   { id: "old_money",   name: "Old Money",   desc: "Elegancia clásica, prendas de calidad, neutros y acabados pulidos." },
   { id: "clean_girl",  name: "Clean Girl",  desc: "Minimalismo pulcro, básicos impecables, look fresco y limpio." },
@@ -378,16 +486,25 @@ const GROUPS = [
   { id: "baddie",      name: "Baddie",      desc: "Seguro y marcado: tendencia, silueta definida y actitud." }
 ];
 
-function zeroScores(){ return Object.fromEntries(GROUPS.map(g => [g.id, 0])); }
-function addPoints(scores, ptsObj){
-  for (const [gid, pts] of Object.entries(ptsObj || {})) if (scores[gid] !== undefined) scores[gid] += (pts ?? 0);
+function zeroScores() {
+  return Object.fromEntries(GROUPS.map(g => [g.id, 0]));
 }
 
-/* Ranking móvil: subir/bajar */
+function addPoints(scores, ptsObj) {
+  for (const [gid, pts] of Object.entries(ptsObj || {})) {
+    if (scores[gid] === undefined) continue;
+    scores[gid] += (pts ?? 0);
+  }
+}
+
+/** =========================
+ *  2) Ranking móvil: Subir/Bajar
+ *  ========================= */
 document.querySelectorAll(".ranking").forEach(list => {
   list.addEventListener("click", (e) => {
     const btn = e.target.closest("button");
     if (!btn) return;
+
     const li = e.target.closest("li");
     if (!li) return;
 
@@ -395,6 +512,7 @@ document.querySelectorAll(".ranking").forEach(list => {
       const prev = li.previousElementSibling;
       if (prev) list.insertBefore(li, prev);
     }
+
     if (btn.classList.contains("down")) {
       const next = li.nextElementSibling;
       if (next) list.insertBefore(next, li);
@@ -402,79 +520,143 @@ document.querySelectorAll(".ranking").forEach(list => {
   });
 });
 
-/* Puntuaciones */
+/** =========================
+ *  3) Puntuaciones
+ *  ========================= */
+
+// Ranking q1 (importancia al vestir)
 const RANKING_Q1 = {
-  zapatos: { 1:{ baddie:2, old_money:1 }, 2:{ baddie:1, old_money:1 }, 3:{ old_money:1 } },
-  complementos:{ 1:{ coquete:2, boho:1 }, 2:{ coquete:1, boho:1 }, 3:{ coquete:1 } },
-  outfit_base:{ 1:{ minimalista:3, clean_girl:2 }, 2:{ minimalista:2, clean_girl:1 }, 3:{ minimalista:1 } },
-  colores:{ 1:{ boho:3, streetwear:2, total_black:2 }, 2:{ boho:2, streetwear:1, total_black:1 }, 3:{ boho:1, streetwear:1 } },
-  comodidad:{ 1:{ athleisure:3, casual_cool:2 }, 2:{ athleisure:2, casual_cool:1 }, 3:{ athleisure:1 } }
-};
-
-const RANKING_Q4 = {
-  trabajo:{ 1:{ old_money:3, clasico:2, clean_girl:1, total_black:1 }, 2:{ old_money:2, clasico:1, clean_girl:1, total_black:1 }, 3:{ clasico:1, clean_girl:1 } },
-  eventos:{ 1:{ baddie:2, coquete:2, old_money:1 }, 2:{ baddie:1, coquete:1, old_money:1 }, 3:{ coquete:1 } },
-  dia_a_dia:{ 1:{ casual_cool:3, minimalista:1, athleisure:1 }, 2:{ casual_cool:2, minimalista:1, athleisure:1 }, 3:{ casual_cool:1 } },
-  vacaciones:{ 1:{ boho:3, coquete:1, streetwear:1 }, 2:{ boho:2, coquete:1, streetwear:1 }, 3:{ boho:1 } }
-};
-
-const RANKING_Q7 = {
-  ropa_deportiva:{ 1:{ athleisure:3 }, 2:{ athleisure:2 }, 3:{ athleisure:1 } },
-  trajes:{ 1:{ old_money:2, clasico:1, total_black:1 }, 2:{ old_money:1, clasico:1, total_black:1 }, 3:{ clasico:1 } },
-  vestidos:{ 1:{ coquete:2, boho:2, clean_girl:1 }, 2:{ coquete:1, boho:1 }, 3:{ coquete:1 } },
-  blusas:{ 1:{ clean_girl:2, minimalista:2, clasico:1 }, 2:{ clean_girl:1, minimalista:1 }, 3:{ minimalista:1 } },
-  pantalones:{ 1:{ casual_cool:2, streetwear:2, athleisure:1 }, 2:{ casual_cool:1, streetwear:1 }, 3:{ casual_cool:1 } }
-};
-
-const SINGLE = {
-  q2:{
-    jeans:{ casual_cool:2, streetwear:2, athleisure:1 },
-    vestidos:{ coquete:2, boho:2, clean_girl:1 },
-    blusas:{ clean_girl:2, minimalista:2, clasico:1 },
-    deportiva:{ athleisure:3, streetwear:1 },
-    trajes:{ old_money:2, clasico:2, minimalista:1 }
+  zapatos: {
+    1: { baddie: 2, old_money: 1 },
+    2: { baddie: 1, old_money: 1 },
+    3: { old_money: 1 }
   },
-  q3:{
-    neutros:{ minimalista:2, clean_girl:1, old_money:1 },
-    vivos:{ streetwear:2, baddie:2, boho:1 },
-    pastel:{ coquete:3, clean_girl:1 },
-    oscuros:{ total_black:3, baddie:1 },
-    mix:{ boho:2, casual_cool:2 }
+  complementos: {
+    1: { coquete: 2, boho: 1 },
+    2: { coquete: 1, boho: 1 },
+    3: { coquete: 1 }
   },
-  q5:{
-    bolsos:{ old_money:1, clean_girl:1 },
-    joyeria:{ coquete:2, baddie:2 },
-    sombreros:{ boho:2, streetwear:1 },
-    lentes:{ casual_cool:2, baddie:1 },
-    nada:{ minimalista:2, clean_girl:1 }
+  outfit_base: {
+    1: { minimalista: 3, clean_girl: 2 },
+    2: { minimalista: 2, clean_girl: 1 },
+    3: { minimalista: 1 }
   },
-  q6:{
-    comodidad:{ athleisure:3, casual_cool:2 },
-    tendencia:{ baddie:2, streetwear:2 },
-    personalidad:{ boho:2, coquete:1, total_black:1 },
-    versatilidad:{ old_money:1, clasico:2 },
-    calidad_precio:{ minimalista:2, casual_cool:1 }
+  colores: {
+    1: { boho: 3, streetwear: 2, total_black: 2 },
+    2: { boho: 2, streetwear: 1, total_black: 1 },
+    3: { boho: 1, streetwear: 1 }
   },
-  q8:{
-    vestido:{ coquete:2, clean_girl:1 },
-    sastre:{ old_money:2, clasico:1, total_black:1 },
-    mono:{ baddie:2, casual_cool:1 }
-  },
-  q9:{
-    jeans:{ casual_cool:2, streetwear:1, athleisure:1 },
-    veraniego:{ boho:2, coquete:1 },
-    sporty:{ athleisure:3 }
-  },
-  q10:{
-    blazer:{ old_money:2, clasico:2 },
-    smart:{ casual_cool:2, clean_girl:1 },
-    sobrio:{ minimalista:2, clean_girl:1, total_black:1 }
+  comodidad: {
+    1: { athleisure: 3, casual_cool: 2 },
+    2: { athleisure: 2, casual_cool: 1 },
+    3: { athleisure: 1 }
   }
 };
 
-function scoreRanking(listEl, mapping){
+// Ranking q4 (cuándo priorizas estilo)
+const RANKING_Q4 = {
+  trabajo: {
+    1: { old_money: 3, clasico: 2, clean_girl: 1, total_black: 1 },
+    2: { old_money: 2, clasico: 1, clean_girl: 1, total_black: 1 },
+    3: { clasico: 1, clean_girl: 1 }
+  },
+  eventos: {
+    1: { baddie: 2, coquete: 2, old_money: 1 },
+    2: { baddie: 1, coquete: 1, old_money: 1 },
+    3: { coquete: 1 }
+  },
+  dia_a_dia: {
+    1: { casual_cool: 3, minimalista: 1, athleisure: 1 },
+    2: { casual_cool: 2, minimalista: 1, athleisure: 1 },
+    3: { casual_cool: 1 }
+  },
+  vacaciones: {
+    1: { boho: 3, coquete: 1, streetwear: 1 },
+    2: { boho: 2, coquete: 1, streetwear: 1 },
+    3: { boho: 1 }
+  }
+};
+
+// Ranking q7 (prendas habituales)
+const RANKING_Q7 = {
+  ropa_deportiva: {
+    1: { athleisure: 3 },
+    2: { athleisure: 2 },
+    3: { athleisure: 1 }
+  },
+  trajes: {
+    1: { old_money: 2, clasico: 1, total_black: 1 },
+    2: { old_money: 1, clasico: 1, total_black: 1 },
+    3: { clasico: 1 }
+  },
+  vestidos: {
+    1: { coquete: 2, boho: 2, clean_girl: 1 },
+    2: { coquete: 1, boho: 1 },
+    3: { coquete: 1 }
+  },
+  blusas: {
+    1: { clean_girl: 2, minimalista: 2, clasico: 1 },
+    2: { clean_girl: 1, minimalista: 1 },
+    3: { minimalista: 1 }
+  },
+  pantalones: {
+    1: { casual_cool: 2, streetwear: 2, athleisure: 1 },
+    2: { casual_cool: 1, streetwear: 1 },
+    3: { casual_cool: 1 }
+  }
+};
+
+// Preguntas selección única
+const SINGLE = {
+  q2: {
+    jeans:      { casual_cool: 2, streetwear: 2, athleisure: 1 },
+    vestidos:   { coquete: 2, boho: 2, clean_girl: 1 },
+    blusas:     { clean_girl: 2, minimalista: 2, clasico: 1 },
+    deportiva:  { athleisure: 3, streetwear: 1 },
+    trajes:     { old_money: 2, clasico: 2, minimalista: 1 }
+  },
+  q3: {
+    neutros: { minimalista: 2, clean_girl: 1, old_money: 1 },
+    vivos:   { streetwear: 2, baddie: 2, boho: 1 },
+    pastel:  { coquete: 3, clean_girl: 1 },
+    oscuros: { total_black: 3, baddie: 1 },
+    mix:     { boho: 2, casual_cool: 2 }
+  },
+  q5: {
+    bolsos:    { old_money: 1, clean_girl: 1 },
+    joyeria:   { coquete: 2, baddie: 2 },
+    sombreros: { boho: 2, streetwear: 1 },
+    lentes:    { casual_cool: 2, baddie: 1 },
+    nada:      { minimalista: 2, clean_girl: 1 }
+  },
+  q6: {
+    comodidad:      { athleisure: 3, casual_cool: 2 },
+    tendencia:      { baddie: 2, streetwear: 2 },
+    personalidad:   { boho: 2, coquete: 1, total_black: 1 },
+    versatilidad:   { old_money: 1, clasico: 2 },
+    calidad_precio: { minimalista: 2, casual_cool: 1 }
+  },
+  q8: {
+    vestido: { coquete: 2, clean_girl: 1 },
+    sastre:  { old_money: 2, clasico: 1, total_black: 1 },
+    mono:    { baddie: 2, casual_cool: 1 }
+  },
+  q9: {
+    jeans:     { casual_cool: 2, streetwear: 1, athleisure: 1 },
+    veraniego: { boho: 2, coquete: 1 },
+    sporty:    { athleisure: 3 }
+  },
+  q10: {
+    blazer: { old_money: 2, clasico: 2 },
+    smart:  { casual_cool: 2, clean_girl: 1 },
+    sobrio: { minimalista: 2, clean_girl: 1, total_black: 1 }
+  }
+};
+
+function scoreRanking(listEl, mapping) {
   const scores = {};
-  [...listEl.querySelectorAll("li")].forEach((li, idx) => {
+  const items = [...listEl.querySelectorAll("li")];
+  items.forEach((li, idx) => {
     const pos = idx + 1;
     const key = li.dataset.item;
     const pts = (mapping[key] && mapping[key][pos]) ? mapping[key][pos] : null;
@@ -483,67 +665,81 @@ function scoreRanking(listEl, mapping){
   return scores;
 }
 
-function calcScores(){
+/** =========================
+ *  4) Calcular resultado
+ *  ========================= */
+function calcScores() {
   const form = document.getElementById("quiz");
+  const msgEl = document.getElementById("msg");
+  msgEl.textContent = "";
+
   const requiredRadios = ["q2","q3","q5","q6","q8","q9","q10"];
-  for (const q of requiredRadios){
-    if (!form.querySelector(`input[name="${q}"]:checked`)) return { ok:false, error:"Te falta responder alguna pregunta." };
+  for (const q of requiredRadios) {
+    const chosen = form.querySelector(`input[name="${q}"]:checked`);
+    if (!chosen) return { ok: false, error: "Te falta responder alguna pregunta." };
   }
 
   const scores = zeroScores();
+
   addPoints(scores, scoreRanking(document.querySelector('.ranking[data-question="q1"]'), RANKING_Q1));
   addPoints(scores, scoreRanking(document.querySelector('.ranking[data-question="q4"]'), RANKING_Q4));
   addPoints(scores, scoreRanking(document.querySelector('.ranking[data-question="q7"]'), RANKING_Q7));
 
-  for (const q of requiredRadios){
+  for (const q of requiredRadios) {
     const chosen = form.querySelector(`input[name="${q}"]:checked`);
     addPoints(scores, SINGLE[q][chosen.value]);
   }
-  return { ok:true, scores };
+
+  return { ok: true, scores };
 }
 
-function pickWinner(scores){
-  const entries = Object.entries(scores).sort((a,b) => b[1]-a[1]);
-  const topScore = entries[0][1];
-  const tied = entries.filter(([_,s]) => s === topScore);
-  if (tied.length > 1){
-    const order = GROUPS.map(g => g.id);
-    tied.sort((a,b) => order.indexOf(a[0]) - order.indexOf(b[0]));
-  }
-  return GROUPS.find(g => g.id === tied[0][0]);
+/** TOP 3 (sin mostrar puntos) */
+function top3Groups(scores){
+  const order = GROUPS.map(g => g.id);
+  const entries = Object.entries(scores).sort((a,b) => {
+    if (b[1] !== a[1]) return b[1] - a[1];
+    return order.indexOf(a[0]) - order.indexOf(b[0]);
+  });
+  return entries.slice(0,3).map(([gid]) => GROUPS.find(g => g.id === gid));
 }
 
-function showResult(){
+function showResult() {
   const out = document.getElementById("resultado");
   const msgEl = document.getElementById("msg");
-  msgEl.textContent = "";
 
   const res = calcScores();
-  if (!res.ok){
+  if (!res.ok) {
     msgEl.textContent = res.error;
     out.style.display = "none";
     return;
   }
 
-  const winner = pickWinner(res.scores);
-  const rows = Object.entries(res.scores).map(([gid, pts]) => {
-    const g = GROUPS.find(x => x.id === gid);
-    return `<div class="score-row"><div>${g?.name ?? gid}</div><div><strong>${pts}</strong></div></div>`;
-  }).join("");
+  const top3 = top3Groups(res.scores);
 
   out.innerHTML = `
-    <div><strong>Tu estilo:</strong><span class="badge">${winner.name}</span></div>
-    <p style="margin:10px 0 0 0;">${winner.desc}</p>
-    <div class="scores">
-      <div style="font-weight:700; margin-top:10px;">Puntuaciones</div>
-      ${rows}
+    <div class="top-title">Tus 3 estilos más probables</div>
+
+    <div class="top-card" style="margin-top:12px;">
+      <div class="sub-title">1º <span class="badge">${top3[0].name}</span></div>
+      <div class="desc">${top3[0].desc}</div>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-title">2º <span class="badge">${top3[1].name}</span></div>
+      <div class="desc">${top3[1].desc}</div>
+    </div>
+
+    <div class="sub-card">
+      <div class="sub-title">3º <span class="badge">${top3[2].name}</span></div>
+      <div class="desc">${top3[2].desc}</div>
     </div>
   `;
+
   out.style.display = "block";
   out.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-function resetQuiz(){
+function resetQuiz() {
   document.getElementById("msg").textContent = "";
   const out = document.getElementById("resultado");
   out.style.display = "none";
