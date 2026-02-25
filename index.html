@@ -260,6 +260,21 @@
     line-height: 1.5;
   }
 
+  .rec-title{
+    margin-top: 12px;
+    font-weight: 900;
+  }
+  .rec-list{
+    margin-top: 8px;
+    padding-left: 18px;
+    color: var(--text);
+  }
+  .rec-list li{
+    list-style: disc;
+    margin: 6px 0;
+    color: var(--muted);
+  }
+
   @media (max-width: 520px){
     .ranking li{ padding: 10px; }
     .rank-btns button{ width: 38px; height: 34px; }
@@ -271,7 +286,7 @@
 <div class="container">
 
   <h1>Test de Estilo</h1>
-  <p class="muted">Responde 10 preguntas. En las de ranking, usa ▲ y ▼ para ordenar. Al final se asignan tus 3 estilos más probables.</p>
+  <p class="muted">Responde 10 preguntas. En las de ranking, usa ▲ y ▼ para ordenar. Al final se asignan tus 3 estilos más probables y 3 prendas recomendadas para tu estilo nº1.</p>
 
   <form id="quiz">
 
@@ -470,20 +485,31 @@
 
 <script>
 /** =========================
- *  1) Estilos finales
+ *  1) Estilos finales + recomendaciones (3 prendas)
  *  ========================= */
 const GROUPS = [
-  { id: "old_money",   name: "Old Money",   desc: "Elegancia clásica, prendas de calidad, neutros y acabados pulidos." },
-  { id: "clean_girl",  name: "Clean Girl",  desc: "Minimalismo pulcro, básicos impecables, look fresco y limpio." },
-  { id: "streetwear",  name: "Streetwear",  desc: "Urbano, oversize, sneakers, gráficos y actitud." },
-  { id: "athleisure",  name: "Athleisure",  desc: "Deportivo-urbano: comodidad técnica + estilo para diario." },
-  { id: "minimalista", name: "Minimalista", desc: "Menos es más: líneas simples, sobriedad, sin exceso." },
-  { id: "boho",        name: "Boho",        desc: "Relajado y artístico: texturas, estampados, vibe libre." },
-  { id: "coquete",     name: "Coquete",     desc: "Femenino coqueto: detalles delicados, romántico y suave." },
-  { id: "casual_cool", name: "Casual Cool", desc: "Casual con intención: sencillo pero con un toque que eleva." },
-  { id: "total_black", name: "Total Black", desc: "Negro y sobriedad con fuerza: monocromo, elegante y potente." },
-  { id: "clasico",     name: "Clásico",     desc: "Atemporal: cortes tradicionales y equilibrio." },
-  { id: "baddie",      name: "Baddie",      desc: "Seguro y marcado: tendencia, silueta definida y actitud." }
+  { id: "old_money",   name: "Old Money",   desc: "Elegancia clásica, prendas de calidad, neutros y acabados pulidos.",
+    rec: ["Blazer estructurado en tono neutro (camel/azul marino)", "Pantalón de pinzas recto", "Jersey de punto fino (cuello redondo o pico)"] },
+  { id: "clean_girl",  name: "Clean Girl",  desc: "Minimalismo pulcro, básicos impecables, look fresco y limpio.",
+    rec: ["Camisa blanca oversize", "Jeans rectos “perfect fit” (lavado medio/claro)", "Trench coat beige"] },
+  { id: "streetwear",  name: "Streetwear",  desc: "Urbano, oversize, sneakers, gráficos y actitud.",
+    rec: ["Sudadera oversize con o sin gráfico", "Cargo pants (o jeans baggy)", "Zapatillas chunky / retro sneakers"] },
+  { id: "athleisure",  name: "Athleisure",  desc: "Deportivo-urbano: comodidad técnica + estilo para diario.",
+    rec: ["Leggings o joggers premium", "Top deportivo + chaqueta tipo zip", "Zapatillas running lifestyle"] },
+  { id: "minimalista", name: "Minimalista", desc: "Menos es más: líneas simples, sobriedad, sin exceso.",
+    rec: ["Camiseta básica de buena caída (blanco/negro/gris)", "Pantalón sastre recto (negro o piedra)", "Abrigo largo recto (negro/camel)"] },
+  { id: "boho",        name: "Boho",        desc: "Relajado y artístico: texturas, estampados, vibe libre.",
+    rec: ["Vestido midi fluido estampado", "Kimono/chaqueta ligera con textura", "Botines de ante (o sandalias de tiras en verano)"] },
+  { id: "coquete",     name: "Coquete",     desc: "Femenino coqueto: detalles delicados, romántico y suave.",
+    rec: ["Blusa con lazos/volantes (detalle romántico)", "Falda mini o midi plisada", "Bailarinas o Mary Janes"] },
+  { id: "casual_cool", name: "Casual Cool", desc: "Casual con intención: sencillo pero con un toque que eleva.",
+    rec: ["Camiseta básica + chaqueta vaquera (o bomber)", "Jeans rectos o wide-leg", "Zapatillas blancas minimal"] },
+  { id: "total_black", name: "Total Black", desc: "Negro y sobriedad con fuerza: monocromo, elegante y potente.",
+    rec: ["Blazer negro (o chaqueta de cuero)", "Pantalón negro recto (o skinny según gusto)", "Botines negros (o sneakers negras)"] },
+  { id: "clasico",     name: "Clásico",     desc: "Atemporal: cortes tradicionales y equilibrio.",
+    rec: ["Camisa azul claro (o blanca)", "Americana básica", "Falda lápiz o pantalón recto"] },
+  { id: "baddie",      name: "Baddie",      desc: "Seguro y marcado: tendencia, silueta definida y actitud.",
+    rec: ["Top ajustado (bodysuit o corset-top)", "Pantalón efecto cuero / falda mini", "Tacón tipo sandalia o botín con punta"] }
 ];
 
 function zeroScores() {
@@ -715,13 +741,21 @@ function showResult() {
   }
 
   const top3 = top3Groups(res.scores);
+  const winner = top3[0];
+
+  const recItems = (winner.rec || []).map(item => `<li>${item}</li>`).join("");
 
   out.innerHTML = `
     <div class="top-title">Tus 3 estilos más probables</div>
 
     <div class="top-card" style="margin-top:12px;">
-      <div class="sub-title">1º <span class="badge">${top3[0].name}</span></div>
-      <div class="desc">${top3[0].desc}</div>
+      <div class="sub-title">1º <span class="badge">${winner.name}</span></div>
+      <div class="desc">${winner.desc}</div>
+
+      <div class="rec-title">3 prendas recomendadas</div>
+      <ul class="rec-list">
+        ${recItems}
+      </ul>
     </div>
 
     <div class="sub-card">
