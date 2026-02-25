@@ -6,148 +6,436 @@
 <title>Test de Estilo</title>
 
 <style>
-body { font-family: Arial, sans-serif; max-width: 900px; margin: 20px auto; }
-.card { border:1px solid #ddd; padding:15px; margin:15px 0; border-radius:10px; }
-h2 { margin-bottom:5px; }
-ul { list-style:none; padding:0; }
-li { padding:8px; border:1px solid #ccc; margin:5px 0; cursor:grab; border-radius:6px; background:#fafafa; }
-button { padding:10px 15px; margin-top:15px; }
-.result { margin-top:20px; font-weight:bold; }
+  body { font-family: system-ui, Arial, sans-serif; max-width: 900px; margin: 20px auto; padding: 0 14px; }
+  .card { border:1px solid #ddd; padding:16px; margin:14px 0; border-radius:14px; }
+  h1 { margin: 10px 0 6px; }
+  h2 { margin: 0 0 10px; font-size: 18px; }
+  .muted { color:#555; margin: 0 0 16px; }
+  ul { list-style:none; padding:0; margin: 0; }
+  li { padding:10px; border:1px solid #ccc; margin:8px 0; cursor:grab; border-radius:10px; background:#fafafa; }
+  label { display:block; padding:8px 10px; border:1px solid #eee; border-radius:10px; margin: 8px 0; cursor:pointer; }
+  label:hover { background:#fafafa; }
+  button { padding:10px 14px; margin-top:10px; border-radius:12px; border:1px solid #222; background:#222; color:#fff; cursor:pointer; }
+  button.secondary { background:#fff; color:#222; }
+  .actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .error { color:#b00020; font-weight:600; margin-left: 4px; }
+  .result { margin-top:16px; border-left:6px solid #222; padding-left:12px; }
+  .badge { display:inline-block; padding:4px 10px; border-radius:999px; border:1px solid #ddd; margin-left:8px; font-size:12px; }
+  .scores { margin-top: 10px; display:grid; gap:6px; }
+  .score-row { display:flex; justify-content:space-between; border:1px solid #eee; border-radius:12px; padding:8px 10px; }
 </style>
 </head>
 
 <body>
 
 <h1>Test de Estilo</h1>
+<p class="muted">Responde 10 preguntas. En las de ranking, arrastra y ordena. Al final se asigna un estilo.</p>
 
 <form id="quiz">
 
-<!-- 1 -->
-<div class="card">
-<h2>1️⃣ Ordena los siguientes aspectos según su importancia al vestir</h2>
-<ul class="ranking" data-question="q1">
-<li draggable="true">Zapatos</li>
-<li draggable="true">Complementos</li>
-<li draggable="true">Outfit base</li>
-<li draggable="true">Colores</li>
-<li draggable="true">Comodidad</li>
-</ul>
-</div>
+  <!-- 1 -->
+  <div class="card">
+    <h2>1️⃣ Ordena los siguientes aspectos según su importancia al vestir</h2>
+    <ul class="ranking" data-question="q1">
+      <li draggable="true" data-item="zapatos">Zapatos</li>
+      <li draggable="true" data-item="complementos">Complementos</li>
+      <li draggable="true" data-item="outfit_base">Outfit base</li>
+      <li draggable="true" data-item="colores">Colores</li>
+      <li draggable="true" data-item="comodidad">Comodidad</li>
+    </ul>
+  </div>
 
-<!-- 2 -->
-<div class="card">
-<h2>2️⃣ ¿Qué tipo de prendas usas con mayor frecuencia?</h2>
-<label><input type="radio" name="q2"> Pantalones o jeans</label><br>
-<label><input type="radio" name="q2"> Vestidos o faldas</label><br>
-<label><input type="radio" name="q2"> Blusas o camisas</label><br>
-<label><input type="radio" name="q2"> Ropa deportiva</label><br>
-<label><input type="radio" name="q2"> Trajes</label>
-</div>
+  <!-- 2 -->
+  <div class="card">
+    <h2>2️⃣ ¿Qué tipo de prendas usas con mayor frecuencia?</h2>
+    <label><input type="radio" name="q2" value="jeans"> Pantalones o jeans</label>
+    <label><input type="radio" name="q2" value="vestidos"> Vestidos o faldas</label>
+    <label><input type="radio" name="q2" value="blusas"> Blusas o camisas</label>
+    <label><input type="radio" name="q2" value="deportiva"> Ropa deportiva</label>
+    <label><input type="radio" name="q2" value="trajes"> Trajes</label>
+  </div>
 
-<!-- 3 -->
-<div class="card">
-<h2>3️⃣ ¿Qué colores te gusta lucir más?</h2>
-<label><input type="radio" name="q3"> Colores neutros</label><br>
-<label><input type="radio" name="q3"> Colores vivos</label><br>
-<label><input type="radio" name="q3"> Tonos pastel</label><br>
-<label><input type="radio" name="q3"> Colores oscuros</label><br>
-<label><input type="radio" name="q3"> Combinar varios colores</label>
-</div>
+  <!-- 3 -->
+  <div class="card">
+    <h2>3️⃣ ¿Qué colores te gusta lucir más?</h2>
+    <label><input type="radio" name="q3" value="neutros"> Colores neutros (negro, blanco, beige, gris)</label>
+    <label><input type="radio" name="q3" value="vivos"> Colores vivos y llamativos</label>
+    <label><input type="radio" name="q3" value="pastel"> Tonos pastel</label>
+    <label><input type="radio" name="q3" value="oscuros"> Colores oscuros</label>
+    <label><input type="radio" name="q3" value="mix"> Prefiero combinar varios colores</label>
+  </div>
 
-<!-- 4 -->
-<div class="card">
-<h2>4️⃣ ¿Cuándo priorizas más tu estilo?</h2>
-<ul class="ranking" data-question="q4">
-<li draggable="true">Eventos especiales</li>
-<li draggable="true">Día a día</li>
-<li draggable="true">Trabajo</li>
-<li draggable="true">Vacaciones</li>
-</ul>
-</div>
+  <!-- 4 -->
+  <div class="card">
+    <h2>4️⃣ ¿Cuándo priorizas más tu estilo? Ordena según importancia para ti</h2>
+    <ul class="ranking" data-question="q4">
+      <li draggable="true" data-item="eventos">Eventos especiales</li>
+      <li draggable="true" data-item="dia_a_dia">Día a día</li>
+      <li draggable="true" data-item="trabajo">Trabajo</li>
+      <li draggable="true" data-item="vacaciones">Vacaciones</li>
+    </ul>
+  </div>
 
-<!-- 5 -->
-<div class="card">
-<h2>5️⃣ ¿Cuáles son tus accesorios favoritos?</h2>
-<label><input type="radio" name="q5"> Bolsos o carteras</label><br>
-<label><input type="radio" name="q5"> Joyería</label><br>
-<label><input type="radio" name="q5"> Sombreros o gorras</label><br>
-<label><input type="radio" name="q5"> Lentes de sol</label><br>
-<label><input type="radio" name="q5"> No uso accesorios</label>
-</div>
+  <!-- 5 -->
+  <div class="card">
+    <h2>5️⃣ ¿Cuáles son tus accesorios favoritos para complementar un atuendo?</h2>
+    <label><input type="radio" name="q5" value="bolsos"> Bolsos o carteras</label>
+    <label><input type="radio" name="q5" value="joyeria"> Joyería (aretes, collares, pulseras)</label>
+    <label><input type="radio" name="q5" value="sombreros"> Sombreros o gorras</label>
+    <label><input type="radio" name="q5" value="lentes"> Lentes de sol</label>
+    <label><input type="radio" name="q5" value="nada"> No suelo usar accesorios</label>
+  </div>
 
-<!-- 6 -->
-<div class="card">
-<h2>6️⃣ ¿Qué factores consideras más importantes?</h2>
-<label><input type="radio" name="q6"> Comodidad</label><br>
-<label><input type="radio" name="q6"> Tendencia</label><br>
-<label><input type="radio" name="q6"> Personalidad</label><br>
-<label><input type="radio" name="q6"> Versatilidad</label><br>
-<label><input type="radio" name="q6"> Calidad-precio</label>
-</div>
+  <!-- 6 -->
+  <div class="card">
+    <h2>6️⃣ ¿Qué factores consideras más importantes al elegir tus atuendos?</h2>
+    <label><input type="radio" name="q6" value="comodidad"> Comodidad</label>
+    <label><input type="radio" name="q6" value="tendencia"> Que sean tendencia</label>
+    <label><input type="radio" name="q6" value="personalidad"> Que reflejen mi personalidad</label>
+    <label><input type="radio" name="q6" value="versatilidad"> Versatilidad para varias ocasiones</label>
+    <label><input type="radio" name="q6" value="calidad_precio"> Relación calidad-precio</label>
+  </div>
 
-<!-- 7 -->
-<div class="card">
-<h2>7️⃣ Ordena las prendas que usas más habitualmente</h2>
-<ul class="ranking" data-question="q7">
-<li draggable="true">Pantalones</li>
-<li draggable="true">Vestidos</li>
-<li draggable="true">Blusas</li>
-<li draggable="true">Ropa deportiva</li>
-<li draggable="true">Trajes</li>
-</ul>
-</div>
+  <!-- 7 -->
+  <div class="card">
+    <h2>7️⃣ Ordena las prendas que usas más habitualmente</h2>
+    <ul class="ranking" data-question="q7">
+      <li draggable="true" data-item="pantalones">Pantalones</li>
+      <li draggable="true" data-item="vestidos">Vestidos</li>
+      <li draggable="true" data-item="blusas">Blusas</li>
+      <li draggable="true" data-item="ropa_deportiva">Ropa deportiva</li>
+      <li draggable="true" data-item="trajes">Trajes</li>
+    </ul>
+  </div>
 
-<!-- 8 -->
-<div class="card">
-<h2>8️⃣ ¿Qué outfit elegirías para un evento formal?</h2>
-<label><input type="radio" name="q8"> Vestido elegante</label><br>
-<label><input type="radio" name="q8"> Traje sastre</label><br>
-<label><input type="radio" name="q8"> Mono de fiesta</label>
-</div>
+  <!-- 8 -->
+  <div class="card">
+    <h2>8️⃣ ¿Qué outfit elegirías para un evento formal?</h2>
+    <label><input type="radio" name="q8" value="vestido"> Vestido elegante</label>
+    <label><input type="radio" name="q8" value="sastre"> Traje sastre</label>
+    <label><input type="radio" name="q8" value="mono"> Mono de fiesta</label>
+  </div>
 
-<!-- 9 -->
-<div class="card">
-<h2>9️⃣ ¿Cuál de estos looks casuales va más contigo?</h2>
-<label><input type="radio" name="q9"> Jeans y camiseta</label><br>
-<label><input type="radio" name="q9"> Vestido veraniego</label><br>
-<label><input type="radio" name="q9"> Conjunto sporty</label>
-</div>
+  <!-- 9 -->
+  <div class="card">
+    <h2>9️⃣ ¿Cuál de estos looks casuales va más contigo?</h2>
+    <label><input type="radio" name="q9" value="jeans"> Jeans y camiseta cómoda</label>
+    <label><input type="radio" name="q9" value="veraniego"> Vestido veraniego</label>
+    <label><input type="radio" name="q9" value="sporty"> Conjunto relajado y sporty</label>
+  </div>
 
-<!-- 10 -->
-<div class="card">
-<h2>🔟 ¿Qué opción prefieres para un ambiente profesional?</h2>
-<label><input type="radio" name="q10"> Blazer con pantalón o falda</label><br>
-<label><input type="radio" name="q10"> Smart casual</label><br>
-<label><input type="radio" name="q10"> Vestido sobrio</label>
-</div>
+  <!-- 10 -->
+  <div class="card">
+    <h2>🔟 ¿Qué opción prefieres para un ambiente profesional?</h2>
+    <label><input type="radio" name="q10" value="blazer"> Blazer con pantalón o falda</label>
+    <label><input type="radio" name="q10" value="smart"> Formal relajado (smart casual)</label>
+    <label><input type="radio" name="q10" value="sobrio"> Vestido sobrio</label>
+  </div>
 
-<button type="button" onclick="mostrarResultado()">Ver resultado</button>
+  <div class="actions">
+    <button type="button" id="btnResult">Ver resultado</button>
+    <button type="button" class="secondary" id="btnReset">Reiniciar</button>
+    <span id="msg" class="error" aria-live="polite"></span>
+  </div>
 
-<div class="result" id="resultado"></div>
+  <div class="result" id="resultado" style="display:none;"></div>
 
 </form>
 
 <script>
-// Drag and drop ranking
-document.querySelectorAll(".ranking").forEach(list => {
-let dragged;
-list.addEventListener("dragstart", e => {
-dragged = e.target;
-});
-list.addEventListener("dragover", e => e.preventDefault());
-list.addEventListener("drop", e => {
-e.preventDefault();
-if(e.target.tagName === "LI"){
-list.insertBefore(dragged, e.target);
+/** =========================
+ *  1) Estilos finales
+ *  ========================= */
+const GROUPS = [
+  { id: "old_money",   name: "Old Money",   desc: "Elegancia clásica, prendas de calidad, neutros y acabados pulidos." },
+  { id: "clean_girl",  name: "Clean Girl",  desc: "Minimalismo pulcro, básicos impecables, look fresco y limpio." },
+  { id: "streetwear",  name: "Streetwear",  desc: "Urbano, oversize, sneakers, gráficos y actitud." },
+  { id: "athleisure",  name: "Athleisure",  desc: "Deportivo-urbano: comodidad técnica + estilo para diario." },
+  { id: "minimalista", name: "Minimalista", desc: "Menos es más: líneas simples, sobriedad, sin exceso." },
+  { id: "boho",        name: "Boho",        desc: "Relajado y artístico: texturas, estampados, vibe libre." },
+  { id: "coquete",     name: "Coquete",     desc: "Femenino coqueto: detalles delicados, romántico y suave." },
+  { id: "casual_cool", name: "Casual Cool", desc: "Casual con intención: sencillo pero con un toque que eleva." },
+  { id: "total_black", name: "Total Black", desc: "Negro y sobriedad con fuerza: monocromo, elegante y potente." },
+  { id: "clasico",     name: "Clásico",     desc: "Atemporal: cortes tradicionales y equilibrio." },
+  { id: "baddie",      name: "Baddie",      desc: "Seguro y marcado: tendencia, silueta definida y actitud." }
+];
+
+function zeroScores() {
+  return Object.fromEntries(GROUPS.map(g => [g.id, 0]));
 }
-});
+
+function addPoints(scores, ptsObj) {
+  for (const [gid, pts] of Object.entries(ptsObj || {})) {
+    if (scores[gid] === undefined) continue;
+    scores[gid] += (pts ?? 0);
+  }
+}
+
+/** =========================
+ *  2) Drag & Drop rankings
+ *  ========================= */
+document.querySelectorAll(".ranking").forEach(list => {
+  let dragged = null;
+
+  list.addEventListener("dragstart", e => {
+    if (e.target.tagName !== "LI") return;
+    dragged = e.target;
+  });
+
+  list.addEventListener("dragover", e => e.preventDefault());
+
+  list.addEventListener("drop", e => {
+    e.preventDefault();
+    if (!dragged) return;
+
+    // Si sueltas encima de otro LI, insertamos antes de ese LI
+    if (e.target.tagName === "LI") {
+      list.insertBefore(dragged, e.target);
+    } else {
+      // Si sueltas en el UL, lo añadimos al final
+      list.appendChild(dragged);
+    }
+  });
 });
 
-// Resultado (placeholder)
-function mostrarResultado(){
-document.getElementById("resultado").innerText =
-"Resultado calculado cuando definamos la asignación a estilos.";
+/** =========================
+ *  3) Puntuaciones (rebalanceadas)
+ *  ========================= */
+
+// Ranking q1 (importancia al vestir)
+const RANKING_Q1 = {
+  zapatos: {
+    1: { baddie: 2, old_money: 1 },
+    2: { baddie: 1, old_money: 1 },
+    3: { old_money: 1 }
+  },
+  complementos: {
+    1: { coquete: 2, boho: 1 },
+    2: { coquete: 1, boho: 1 },
+    3: { coquete: 1 }
+  },
+  outfit_base: {
+    1: { minimalista: 3, clean_girl: 2 },
+    2: { minimalista: 2, clean_girl: 1 },
+    3: { minimalista: 1 }
+  },
+  colores: {
+    1: { boho: 3, streetwear: 2, total_black: 2 },   // 👈 refuerzo Total Black
+    2: { boho: 2, streetwear: 1, total_black: 1 },
+    3: { boho: 1, streetwear: 1 }
+  },
+  comodidad: {
+    1: { athleisure: 3, casual_cool: 2 },
+    2: { athleisure: 2, casual_cool: 1 },            // 👈 refuerzo Athleisure
+    3: { athleisure: 1 }
+  }
+};
+
+// Ranking q4 (cuándo priorizas estilo)
+const RANKING_Q4 = {
+  trabajo: {
+    1: { old_money: 3, clasico: 2, clean_girl: 1, total_black: 1 },
+    2: { old_money: 2, clasico: 1, clean_girl: 1, total_black: 1 },
+    3: { clasico: 1, clean_girl: 1 }
+  },
+  eventos: {
+    1: { baddie: 2, coquete: 2, old_money: 1 },
+    2: { baddie: 1, coquete: 1, old_money: 1 },
+    3: { coquete: 1 }
+  },
+  dia_a_dia: {
+    1: { casual_cool: 3, minimalista: 1, athleisure: 1 },
+    2: { casual_cool: 2, minimalista: 1, athleisure: 1 },
+    3: { casual_cool: 1 }
+  },
+  vacaciones: {
+    1: { boho: 3, coquete: 1, streetwear: 1 },
+    2: { boho: 2, coquete: 1, streetwear: 1 },
+    3: { boho: 1 }
+  }
+};
+
+// Ranking q7 (prendas habituales)
+const RANKING_Q7 = {
+  ropa_deportiva: {
+    1: { athleisure: 3 },
+    2: { athleisure: 2 },  // 👈 refuerzo Athleisure
+    3: { athleisure: 1 }
+  },
+  trajes: {
+    1: { old_money: 2, clasico: 1, total_black: 1 }, // 👈 refuerzo Total Black + reduce Clásico
+    2: { old_money: 1, clasico: 1, total_black: 1 },
+    3: { clasico: 1 }
+  },
+  vestidos: {
+    1: { coquete: 2, boho: 2, clean_girl: 1 },
+    2: { coquete: 1, boho: 1 },
+    3: { coquete: 1 }
+  },
+  blusas: {
+    1: { clean_girl: 2, minimalista: 2, clasico: 1 },
+    2: { clean_girl: 1, minimalista: 1 },
+    3: { minimalista: 1 }
+  },
+  pantalones: {
+    1: { casual_cool: 2, streetwear: 2, athleisure: 1 }, // 👈 refuerzo Athleisure suave
+    2: { casual_cool: 1, streetwear: 1 },
+    3: { casual_cool: 1 }
+  }
+};
+
+// Preguntas selección única
+const SINGLE = {
+  q2: {
+    jeans:      { casual_cool: 2, streetwear: 2, athleisure: 1 },
+    vestidos:   { coquete: 2, boho: 2, clean_girl: 1 },
+    blusas:     { clean_girl: 2, minimalista: 2, clasico: 1 },
+    deportiva:  { athleisure: 3, streetwear: 1 },
+    trajes:     { old_money: 2, clasico: 2, minimalista: 1 }
+  },
+  q3: {
+    neutros: { minimalista: 2, clean_girl: 1, old_money: 1 }, // 👈 Clean Girl reducido
+    vivos:   { streetwear: 2, baddie: 2, boho: 1 },
+    pastel:  { coquete: 3, clean_girl: 1 },
+    oscuros: { total_black: 3, baddie: 1 },
+    mix:     { boho: 2, casual_cool: 2 }
+  },
+  q5: {
+    bolsos:   { old_money: 1, clean_girl: 1 },
+    joyeria:  { coquete: 2, baddie: 2 },
+    sombreros:{ boho: 2, streetwear: 1 },
+    lentes:   { casual_cool: 2, baddie: 1 },
+    nada:     { minimalista: 2, clean_girl: 1 }
+  },
+  q6: {
+    comodidad:      { athleisure: 3, casual_cool: 2 },              // 👈 Athleisure reforzado
+    tendencia:      { baddie: 2, streetwear: 2 },
+    personalidad:   { boho: 2, coquete: 1, total_black: 1 },        // 👈 Total Black nuevo
+    versatilidad:   { old_money: 1, clasico: 2 },                   // 👈 Old Money reducido
+    calidad_precio: { minimalista: 2, casual_cool: 1 }
+  },
+  q8: {
+    vestido: { coquete: 2, clean_girl: 1 },
+    sastre:  { old_money: 2, clasico: 1, total_black: 1 },          // 👈 Total Black nuevo + Clásico reducido
+    mono:    { baddie: 2, casual_cool: 1 }
+  },
+  q9: {
+    jeans:     { casual_cool: 2, streetwear: 1, athleisure: 1 },    // 👈 Athleisure nuevo
+    veraniego: { boho: 2, coquete: 1 },
+    sporty:    { athleisure: 3 }
+  },
+  q10: {
+    blazer: { old_money: 2, clasico: 2 },
+    smart:  { casual_cool: 2, clean_girl: 1 },
+    sobrio: { minimalista: 2, clean_girl: 1, total_black: 1 }       // 👈 Total Black nuevo
+  }
+};
+
+function scoreRanking(listEl, mapping) {
+  const scores = {};
+  const items = [...listEl.querySelectorAll("li")];
+  items.forEach((li, idx) => {
+    const pos = idx + 1; // 1..N
+    const key = li.dataset.item;
+    const pts = (mapping[key] && mapping[key][pos]) ? mapping[key][pos] : null;
+    if (pts) addPoints(scores, pts);
+  });
+  return scores;
 }
+
+/** =========================
+ *  4) Calcular resultado
+ *  ========================= */
+function calcScores() {
+  const form = document.getElementById("quiz");
+  const msgEl = document.getElementById("msg");
+
+  msgEl.textContent = "";
+
+  // Validación radios q2,q3,q5,q6,q8,q9,q10
+  const requiredRadios = ["q2","q3","q5","q6","q8","q9","q10"];
+  for (const q of requiredRadios) {
+    const chosen = form.querySelector(`input[name="${q}"]:checked`);
+    if (!chosen) return { ok: false, error: "Te falta responder alguna pregunta." };
+  }
+
+  const scores = zeroScores();
+
+  // Rankings: q1, q4, q7
+  const q1List = document.querySelector('.ranking[data-question="q1"]');
+  const q4List = document.querySelector('.ranking[data-question="q4"]');
+  const q7List = document.querySelector('.ranking[data-question="q7"]');
+
+  addPoints(scores, scoreRanking(q1List, RANKING_Q1));
+  addPoints(scores, scoreRanking(q4List, RANKING_Q4));
+  addPoints(scores, scoreRanking(q7List, RANKING_Q7));
+
+  // Singles
+  for (const q of requiredRadios) {
+    const chosen = form.querySelector(`input[name="${q}"]:checked`);
+    const val = chosen.value;
+    addPoints(scores, SINGLE[q][val]);
+  }
+
+  return { ok: true, scores };
+}
+
+function pickWinner(scores) {
+  const entries = Object.entries(scores).sort((a,b) => b[1] - a[1]);
+  const topScore = entries[0][1];
+  const tied = entries.filter(([_, s]) => s === topScore);
+
+  // Desempate estable por orden de GROUPS
+  if (tied.length > 1) {
+    const order = GROUPS.map(g => g.id);
+    tied.sort((a,b) => order.indexOf(a[0]) - order.indexOf(b[0]));
+  }
+
+  const winnerId = tied[0][0];
+  return GROUPS.find(g => g.id === winnerId);
+}
+
+function showResult() {
+  const out = document.getElementById("resultado");
+  const msgEl = document.getElementById("msg");
+
+  const res = calcScores();
+  if (!res.ok) {
+    msgEl.textContent = res.error;
+    out.style.display = "none";
+    return;
+  }
+
+  const winner = pickWinner(res.scores);
+
+  const rows = Object.entries(res.scores)
+    .map(([gid, pts]) => {
+      const g = GROUPS.find(x => x.id === gid);
+      return `<div class="score-row"><div>${g?.name ?? gid}</div><div><strong>${pts}</strong></div></div>`;
+    })
+    .join("");
+
+  out.innerHTML = `
+    <div><strong>Tu estilo:</strong><span class="badge">${winner.name}</span></div>
+    <p style="margin:10px 0 0 0;">${winner.desc}</p>
+    <div class="scores">
+      <div style="font-weight:700; margin-top:10px;">Puntuaciones</div>
+      ${rows}
+    </div>
+  `;
+  out.style.display = "block";
+  out.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function resetQuiz() {
+  document.getElementById("msg").textContent = "";
+  const out = document.getElementById("resultado");
+  out.style.display = "none";
+  document.getElementById("quiz").reset();
+}
+
+document.getElementById("btnResult").addEventListener("click", showResult);
+document.getElementById("btnReset").addEventListener("click", resetQuiz);
 </script>
 
 </body>
